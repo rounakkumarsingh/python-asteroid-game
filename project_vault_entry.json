@@ -1,0 +1,28 @@
+{
+  "id": "python_asteroid_game",
+  "title": "Python Asteroid Game",
+  "tagline": "Arcade-style asteroid shooter implemented with pygame sprite groups and JSON logging.",
+  "github_url": "https://github.com/rounakkumarsingh/python-asteroid-game",
+  "tech_stack": ["Python", "pygame"],
+  "concepts": [
+    "game loop",
+    "event-driven input handling",
+    "collision detection",
+    "sprite-based rendering",
+    "randomized spawning",
+    "file logging"
+  ],
+  "bullets": [
+    "Implemented pygame game loop that initializes sprite groups for updatable and drawable entities, updating them each frame with a 60 FPS clock.",
+    "Managed player ship movement through vector-based rotation and translation with configurable turn and thrust speeds, rendering a triangular outline via polygon drawing.",
+    "Added a shooting mechanic that spawns Shot sprites at the player position, propelling them along the facing vector with a cooldown timer to regulate fire rate.",
+    "Built an asteroid spawning system that selects random screen edges, assigns directional velocities with rotational jitter, and instantiates asteroids at intervals defined by ASTEROID_SPAWN_RATE.",
+    "Created asteroid splitting behavior that removes the original sprite and emits two smaller asteroids with rotated velocities scaled by ASTEROID_BROKEN_SPEED_SCALING until the minimum radius is reached.",
+    "Logged game state snapshots once per second to JSONL, capturing sampled sprite positions, velocities, radii, rotations, and screen size while limiting entries to the first 10 sprites per group.",
+    "Captured structured gameplay events such as player collisions and asteroid hits with timestamps, elapsed seconds, and frame counters in a separate JSONL log."
+  ],
+  "architecture": "The game initializes a pygame display and groups for updating and drawing sprites, wiring container references so Player, Asteroid, Shot, and AsteroidField instances register themselves automatically. CircleShape supplies shared position, velocity, radius, and collision detection while each subclass implements drawing and update behavior. AsteroidField maintains a spawn timer to emit asteroids from randomized screen edges with varied velocities, and the main loop advances sprites, resolves player-asteroid and shot-asteroid collisions, and handles asteroid splitting. A logger module introspects the main loop locals to write periodic game_state JSONL snapshots and on-demand event logs to disk, providing lightweight persistence of runtime data without external storage or networking.",
+  "complexity": "low",
+  "created_at": "2025-12-07",
+  "last_updated": "2026-02-17"
+}
